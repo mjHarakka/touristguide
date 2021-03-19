@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "title": "Layer 2 test",
+    "lat": 60.170419,
+    "long": 24.952165,
+    "description": "Layer 2 test"
+  },
+  {
+    "id": "2",
+    "title": "McDonalds",
+    "lat": 60.1690169482,
+    "long": 24.9399417196,
+    "description": "Layer 2 test"
+  }
+]
