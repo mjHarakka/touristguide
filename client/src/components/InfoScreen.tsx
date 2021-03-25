@@ -1,8 +1,6 @@
-import { fixControlledValue } from 'antd/lib/input/Input'
 import React from 'react'
 
 const style = {
-    position: fixed,
 
 }
 

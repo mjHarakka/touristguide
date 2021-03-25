@@ -2,13 +2,15 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from 'react'
-import ReactMapGL, { Popup } from 'react-map-gl'
+import ReactMapGL, { Layer, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import axios from 'axios'
 import Marker from './Marker'
 import PlaceDetail from './PlaceDetail'
+import LayerButton from './components/LayerButton'
+import layerService from './services/layers'
 
-let layer1 = require('./data/layer1.json')
+const layer1 = require('./data/layer1.json')
 
 const TOKEN =
   'pk.eyJ1IjoibWpoYXJha2thIiwiYSI6ImNqbjBkdDc2NTFrMDQzdnFsbG1weHU0NzMifQ.DA8foxpDUJyS9mAZ8mWXew'
@@ -22,45 +24,22 @@ const ReactMap = () => {
     zoom: 12,
   })
 
-  const [places, setPlaces] = useState([])
   const [selectedPlace, setSelectedPlace] = useState(null)
   const [selectedLayer, setSelectedLayer] = useState(layer1)
+  const [layerData, setLayerData] = useState(null)
 
-  console.log(setSelectedLayer)
-  console.log(selectedLayer)
-  /*
   useEffect(() => {
-    const listener = (e) => {
-      if (e.key === 'Escape') {
-        setSelectedPlace(null)
-      }
-    }
-    window.addEventListener('keydown', listener)
-
-    return () => {
-      window.removeEventListener('keydown', listener)
-    }
+    layerService.getAll().then((response) => {
+      setLayerData(response.data)
+    })
   }, [])
 
-  useEffect(() => {
-    axios.get('foo').then((res) => {
-        const data = res.data.filter(
-          (place) =>
-            (place.lat !== null || place.long !== null) &&
-            place.status === 'open'
-        )
-      setPlaces(res.data.data)
-    })
-  })
-
-  */
   return (
     <div className="ui grid">
       <div className="sixteen wide column" style={{ padding: '0px' }}>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={TOKEN}
-          // mapStyle="mapbox://styles/mapbox/streets-v11"
           onViewportChange={(viewport) => {
             setViewPort(viewport)
           }}
@@ -68,6 +47,9 @@ const ReactMap = () => {
           {selectedLayer.map((place) => (
             <Marker key={place.id} place={place} onClick={setSelectedPlace} />
           ))}
+          <div>
+            <i className="bars icon"></i>
+          </div>
           {selectedPlace && (
             <Popup
               latitude={selectedPlace.lat}
@@ -80,6 +62,7 @@ const ReactMap = () => {
             </Popup>
           )}
         </ReactMapGL>
+        <LayerButton />
       </div>
     </div>
   )

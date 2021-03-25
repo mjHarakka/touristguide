@@ -16,14 +16,14 @@ const Marker = (props) => {
           className="circular ui icon button blue"
           onClick={place.setMarker}
         >
-          <i class="coffee icon"></i>
+          <i className="coffee icon"></i>
 
         </button>
       ) : (
         <button
           className="circular ui icon button blue"
           onClick={place.setMarker}
-        ><i class="building icon"></i>
+        ><i className="building icon"></i>
         </button>
       )}
     </ReactMarker>
